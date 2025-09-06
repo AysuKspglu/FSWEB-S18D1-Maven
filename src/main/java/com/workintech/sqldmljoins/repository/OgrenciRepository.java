@@ -10,7 +10,7 @@ public interface OgrenciRepository extends JpaRepository<Ogrenci, Long> {
 
 
     //Kitap alan öğrencilerin öğrenci bilgilerini listeleyin..
-    String QUESTION_2 = "select o. * from ogrenci o \n" +
+    String QUESTION_2 = "select o.* from ogrenci o \n" +
             "INNER JOIN islem i \n" +
             "on o.ogrno = i.ogrno";
     @Query(value = QUESTION_2, nativeQuery = true)
@@ -18,7 +18,7 @@ public interface OgrenciRepository extends JpaRepository<Ogrenci, Long> {
 
 
     //Kitap almayan öğrencileri listeleyin.
-    String QUESTION_3 = "select o. * from ogrenci o \n" +
+    String QUESTION_3 = "select o.* from ogrenci o \n" +
             "Left JOIN islem i \n" +
             "on o.ogrno = i.ogrno\n" +
             "where i.ogrno is null";
@@ -26,7 +26,7 @@ public interface OgrenciRepository extends JpaRepository<Ogrenci, Long> {
     List<Ogrenci> findStudentsWithNoBook();
 
     //10A veya 10B sınıfındaki öğrencileri sınıf ve okuduğu kitap sayısını getirin.
-    String QUESTION_4 = "select o. sinif, count(i.kitapno)from ogrenci o \n" +
+    String QUESTION_4 = "select o.sinif, count(i.kitapno) from ogrenci o \n" +
             "Left JOIN islem i \n" +
             "on o.ogrno = i.ogrno\n" +
             "where o.sinif in ('10A', '10B')\n" +
@@ -35,23 +35,23 @@ public interface OgrenciRepository extends JpaRepository<Ogrenci, Long> {
     List<KitapCount> findClassesWithBookCount();
 
     //Öğrenci tablosundaki öğrenci sayısını gösterin
-    String QUESTION_5 = "select count(o.ogrno)from ogrenci o";
+    String QUESTION_5 = "select count(o.ogrno) from ogrenci o";
     @Query(value = QUESTION_5, nativeQuery = true)
     Integer findStudentCount();
 
     //Öğrenci tablosunda kaç farklı isimde öğrenci olduğunu listeleyiniz.
-    String QUESTION_6 = "select count(distinct o.ad)from ogrenci o";
+    String QUESTION_6 = "select count(distinct o.ad) from ogrenci o";
     @Query(value = QUESTION_6, nativeQuery = true)
     Integer findUniqueStudentNameCount();
 
     //--İsme göre öğrenci sayılarının adedini bulunuz.
     //--Ali: 2, Mehmet: 3
-    String QUESTION_7 = "select o.ad, count(o.ad)from ogrenci o group by o.ad";
+    String QUESTION_7 = "select o.ad, count(o.ad) from ogrenci o group by o.ad";
     @Query(value = QUESTION_7, nativeQuery = true)
     List<StudentNameCount> findStudentNameCount();
 
 
-    String QUESTION_8 = "select o.sinif, count(o.ogrno)from ogrenci o group by o.sinif";
+    String QUESTION_8 = "select o.sinif, count(o.ogrno) from ogrenci o group by o.sinif";
     @Query(value = QUESTION_8, nativeQuery = true)
     List<StudentClassCount> findStudentClassCount();
 
